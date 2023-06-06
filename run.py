@@ -36,17 +36,23 @@ def index():
 
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    # a second argument is entered with a name of our choice so that we can pass
+    # data from the server side to our front end. Above there is a second argument
+    # called page_title which we will pass to the front end.
+
+    # you can add as many arguments here as you like, just remember to use snake_case
+    # when naming your variables
+    return render_template('about.html', page_title='About')
 
 
 @app.route('/contact')
 def contact():
-    return render_template('contact.html')
+    return render_template('contact.html', page_title='Contact')
 
 
 @app.route('/careers')
 def careers():
-    return render_template('careers.html')
+    return render_template('careers.html', page_title='Careers')
 
 
 # __main__ is name of the default module in python. This is the first one that
