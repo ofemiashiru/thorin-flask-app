@@ -3,6 +3,7 @@
 <h2>{{ page_title }}</h2>
 <!-- This text is being sent from the server side to the client side -->
 <!-- Remember double curly bracketts is an expression that will display something on the page -->
+
 <p>
     The formation of the group grew out of a meeting Gandalf had with Thorin in Bree which kindled Thorin's interest in
     recapturing his long lost family inheritance. (Thorin's grandfather had been the King under the Mountain when Smaug
@@ -16,68 +17,41 @@
     also considered thirteen to be an unlucky number, and as Gandalf had planned to leave on other business, welcomed a
     fourteenth to fill into their party.
 </p>
+
+<!-- 
+    We can also iterate over lists sent from the server side - however we us the single curly brackets
+    with percentages as these are statements not expressions - this is called logic control
+-->
+{% for character in company %}
 <div class="row featurette">
+    {% if loop.index % 2 != 0%}
     <div class="col-md-7">
-        <h3>Thorin Oakenshield</h3>
+        <!-- When we create a for loop in Jinja it automatically creates a loop.index for us to use -->
+        <h3>{{ loop.index}}.{{ character.name }}</h3>
         <p>
-            Thorin II was born in TA 2746 to Dwarf prince Thráin II in the city of the Lonely Mountain. Early in his
-            youth, he and
-            the other Dwarves of the Lonely Mountain were forced to flee by the dragon Smaug in TA 2770. While in exile,
-            he quickly
-            grew to become a capable warrior. This was demonstrated when he participated in the Battle of Azanulbizar in
-            TA 2799. He
-            fought with one of the Dwarven armies beneath the East-gate of Moria. At some point in the fighting, his
-            shield broke,
-            and using an oaken tree branch found on the ground as a shield, he gained the epithet "Oakenshield," which
-            would remain
-            with him even in death.
+            {{ character.description}}
         </p>
     </div>
     <div class="col-md-5">
-        <img src="https://static.wikia.nocookie.net/lotr/images/2/29/Thorin_Oakenshield.jpg" alt="Thorin Oakenshield">
+        <img src="{{ character.image_source }}" class="featurette-image image-responsive" alt="{{ character.name }}">
     </div>
-</div>
 
-<div class="row featurette">
+    {% else %}
     <div class="col-md-5">
-        <img src="https://static.wikia.nocookie.net/lotr/images/b/b4/The-Hobbit-Fili-and-Kili.jpg" alt="Fíli and Kíli"
-            srcset="">
+        <img src="{{ character.image_source }}" class="featurette-image image-responsive" alt="{{ character.name }}">
     </div>
     <div class="col-md-7">
-        <h3>Fili and Kili</h3>
+        <h3>{{ loop.index}}.{{ character.name }}</h3>
         <p>
-            Fíli and Kíli were brothers, the youngest of the thirteen Dwarves who set out with Thorin Oakenshield's
-            company, along
-            with Gandalf and Bilbo Baggins, to reclaim the Lonely Mountain from the dragon Smaug.
-
-            Fíli and Kíli were the two most active Dwarves of Thorin's company, and, apart from Balin and possibly
-            Bombur, they
-            appear more frequently as "individual" characters in J.R.R. Tolkien's The Hobbit than the rest of
-            Thorin's companions,
-            who are most often named only in group-reference.
+            {{ character.description}}
         </p>
     </div>
+    {% endif %}
 </div>
+<!-- Using Jinja properties see more on https://jinja.palletsprojects.com/en/3.1.x/ -->
+{% if loop.index != loop.length %}
+<hr class="featurette-divider">
+{% endif %}
 
-<div class="row feauturette">
-    <div class="col-md-7">
-        <h3>Bifur</h3>
-        <p>
-            Whilst he was a descendant of the Dwarves of Khazad-dûm, Bifur was not related to the royal House of Durin.
-            Most of his
-            familial relations are unclear, and what is known of his parentage is very little. He and his family were
-            driven out of
-            their home in the Lonely Mountain by the dragon Smaug, and were forced to live in exile, where the Dwarf
-            warrior worked
-            as a toy maker. Following Thorin II Oakenshield to a new life at his halls in the Blue Mountains, he
-            continued his life
-            as a toy maker.
-        </p>
-    </div>
-
-    <div class="col-md-5">
-        <img src="https://static.wikia.nocookie.net/lotr/images/1/18/The-Hobbit-An-Unexpected-Journey-Bifur.jpg"
-            alt="Bifur">
-    </div>
-</div>
+{% endfor %}
 {% endblock %}

@@ -1,6 +1,9 @@
 # import os
 import os
 
+# enable application to us json
+import json
+
 # import the Flask class
 # render template() function allows us to render data to a HTML file
 from flask import Flask, render_template
@@ -36,13 +39,20 @@ def index():
 
 @app.route('/about')
 def about():
-    # a second argument is entered with a name of our choice so that we can pass
-    # data from the server side to our client side. Above there is a second argument
-    # called page_title which we will pass to the client side.
+    
+    data = []
 
-    # you can add as many arguments here as you like, just remember to use snake_case
-    # when naming your variables
-    return render_template('about.html', page_title='About')
+    with open('data/company.json', 'r') as json_data:
+        data = json.load(json_data)
+
+
+    # a second argument is entered with a name of our choice so that we can
+    # pass data from the server side to our client side. Above there is a
+    # second argument called page_title which we will pass to the client side.
+
+    # you can add as many arguments here as you like, just remember to use
+    # snake_case when naming your variables
+    return render_template('about.html', page_title='About', company=data)
 
 
 @app.route('/contact')
