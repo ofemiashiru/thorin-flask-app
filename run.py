@@ -39,12 +39,11 @@ def index():
 
 @app.route('/about')
 def about():
-    
+
     data = []
 
     with open('data/company.json', 'r') as json_data:
         data = json.load(json_data)
-
 
     # a second argument is entered with a name of our choice so that we can
     # pass data from the server side to our client side. Above there is a
@@ -53,6 +52,22 @@ def about():
     # you can add as many arguments here as you like, just remember to use
     # snake_case when naming your variables
     return render_template('about.html', page_title='About', company=data)
+
+
+# creating a new decorater to help navigate to a customer url
+# whenever we look at our about page with something after it, it will
+# passed into this view
+@app.route('/about/<character_name>')
+def about_character(character_name):
+    character = {}
+
+    with open('data/company.json', 'r') as json_data:
+        data = json.load(json_data)
+
+        for obj in data:
+            if obj["url"] == character_name:
+                character = obj
+    return render_template('character.html', character=character)
 
 
 @app.route('/contact')
