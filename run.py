@@ -37,8 +37,8 @@ def index():
 @app.route('/about')
 def about():
     # a second argument is entered with a name of our choice so that we can pass
-    # data from the server side to our front end. Above there is a second argument
-    # called page_title which we will pass to the front end.
+    # data from the server side to our client side. Above there is a second argument
+    # called page_title which we will pass to the client side.
 
     # you can add as many arguments here as you like, just remember to use snake_case
     # when naming your variables
