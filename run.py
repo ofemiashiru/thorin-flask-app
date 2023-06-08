@@ -6,7 +6,10 @@ import json
 
 # import the Flask class
 # render template() function allows us to render data to a HTML file
-from flask import Flask, render_template
+
+# the request module will handle the type of method we use (GET or POST) and it
+# will also contain our form object when we post it
+from flask import Flask, render_template, request
 
 
 # creating an instance of the Flask class and calling it app.
@@ -70,9 +73,30 @@ def about_character(character_name):
 
     return render_template('character.html', character=character)
 
+# in order for our route to handle get and post requests we have to specify
+# these methods as a spearate kwargs argument below
 
-@app.route('/contact')
+
+@app.route('/contact', methods=['GET', 'POST'])
 def contact():
+    # this wiil check if the method is a POST or GET. if it is a POST it will
+    # action the below
+    if request.method == 'POST':
+
+        # request.form is returned and because this is a dictionary, we can
+        # actually use a standard Python method (.get()) of accessing the keys
+        # for that dictionary. If I print(request.form.get("name")), this will
+        # allow us to get the'name' value from our form.
+        print(request.form.get('name'))
+
+        # we can also access data from the reqeust.form object with square
+        # notation.
+        print(request.form['email'])
+
+        # the main difference between the above ways of getting information
+        # from the dictionary is that the get.() method will return None if
+        # there is no matching key where as the square notation method will
+        # throw an exception if the key is not mataching
     return render_template('contact.html', page_title='Contact')
 
 
