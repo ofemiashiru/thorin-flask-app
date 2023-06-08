@@ -67,6 +67,7 @@ def about_character(character_name):
         for obj in data:
             if obj["url"] == character_name:
                 character = obj
+
     return render_template('character.html', character=character)
 
 
