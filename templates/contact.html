@@ -10,6 +10,16 @@
         <p>Want to get in touch? Fill out the form below to send me a message and I will get back to you as soon as
             possible!
         </p>
+        <!-- with statement in jinja is used like an if statement -->
+        {% with messages = get_flashed_messages() %}
+        {% if messages%}
+        <ul class="flasshes">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor%}
+        </ul>
+        {% endif %}
+        {% endwith %}
 
         <!-- We must make sure to add name attributes for each of our inputs as this is the way that python will reference it -->
         <form method="POST" name="sentMessage" id="contactForm" novalidate>

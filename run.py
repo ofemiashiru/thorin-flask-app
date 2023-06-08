@@ -1,15 +1,32 @@
 # import os
 import os
 
+
+# using the os.path.exists() we can check if a file exists and responds
+# accordingly based on wheter it was found or not - if found it will be
+# imported
+
+if os.path.exists('env.py'):
+    import env
+
+
 # enable application to us json
 import json
 
-# import the Flask class
-# render template() function allows us to render data to a HTML file
+# import the **Flask** class from flask
 
-# the request module will handle the type of method we use (GET or POST) and it
-# will also contain our form object when we post it
-from flask import Flask, render_template, request
+# import **render_template()** function allows us to render data to a HTML file
+
+# import **request** the request module will handle the type of method we use
+# (GET or POST) and it will also contain our form object when we post it
+
+# import **flash** allows us to feed back a message to the user or flash a
+# message to them
+# to use flash use flashed messages, we need to create a secret key, because
+# Flask cryptographically signs all of the messages for security purposes.
+# we need to provide a secret key that Flask can use to sign the messages
+
+from flask import Flask, render_template, request, flash
 
 
 # creating an instance of the Flask class and calling it app.
@@ -20,10 +37,13 @@ from flask import Flask, render_template, request
 # and static files.
 app = Flask(__name__)
 
+# brings in the secret key
+app.secret_key = os.environ.get('SECRET_KEY')
 
 # a decorator that states when we visit the specified route
 # it should return the text hello world
 # remember that a decorator modifies the function that it appears above
+
 
 @app.route('/')
 def index():
@@ -97,10 +117,12 @@ def contact():
         # from the dictionary is that the get.() method will return None if
         # there is no matching key where as the square notation method will
         # throw an exception if the key is not mataching
+        flash('Thanks {} we have recieved a message'.format(
+            request.form.get("name")))
     return render_template('contact.html', page_title='Contact')
 
 
-@app.route('/careers')
+@ app.route('/careers')
 def careers():
     return render_template('careers.html', page_title='Careers')
 
